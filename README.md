@@ -33,6 +33,8 @@ that respect the craft of each genre rather than averaging across all of them.
 higgsfield-prompt-engineer/
 ├── README.md
 ├── LICENSE
+├── requirements.txt               # Python deps for the eval harness
+├── .env.example
 ├── shared/                        # Reusable craft library
 │   ├── camera-movements.md        # ~22 camera moves with prompt phrasing
 │   ├── lighting-library.md        # ~15 lighting setups
@@ -41,22 +43,37 @@ higgsfield-prompt-engineer/
 │   ├── hook-framework.md          # 12 attention-grabbing openers
 │   ├── timeline-structures.md     # 4s / 8s / 10s / 15s arcs
 │   └── prompt-template.md         # Master prompt skeleton
-└── skills/
-    ├── 01-cinematic/SKILL.md
-    ├── 02-3d-cgi/SKILL.md
-    ├── 03-cartoon/SKILL.md
-    ├── 04-comic-to-video/SKILL.md
-    ├── 05-fight-scenes/SKILL.md
-    ├── 06-motion-design-ad/SKILL.md
-    ├── 07-ecommerce-ad/SKILL.md
-    ├── 08-anime-action/SKILL.md
-    ├── 09-product-360/SKILL.md
-    ├── 10-music-video/SKILL.md
-    ├── 11-social-hook/SKILL.md
-    ├── 12-brand-story/SKILL.md
-    ├── 13-fashion-lookbook/SKILL.md
-    ├── 14-food-beverage/SKILL.md
-    └── 15-real-estate/SKILL.md
+├── skills/                        # 15 Claude Skills, one per vertical
+│   ├── 01-cinematic/SKILL.md
+│   ├── 02-3d-cgi/SKILL.md
+│   ├── 03-cartoon/SKILL.md
+│   ├── 04-comic-to-video/SKILL.md
+│   ├── 05-fight-scenes/SKILL.md
+│   ├── 06-motion-design-ad/SKILL.md
+│   ├── 07-ecommerce-ad/SKILL.md
+│   ├── 08-anime-action/SKILL.md
+│   ├── 09-product-360/SKILL.md
+│   ├── 10-music-video/SKILL.md
+│   ├── 11-social-hook/SKILL.md
+│   ├── 12-brand-story/SKILL.md
+│   ├── 13-fashion-lookbook/SKILL.md
+│   ├── 14-food-beverage/SKILL.md
+│   └── 15-real-estate/SKILL.md
+├── mcp/                           # Higgsfield MCP wiring
+│   ├── README.md                  # Setup for official + community MCPs
+│   └── higgsfield.template.json   # Claude Code MCP config template
+└── eval/                          # Iterative refinement harness
+    ├── README.md                  # Architecture, usage, cost shape
+    ├── cli.py                     # python -m eval.cli run / check-mcp
+    ├── harness.py                 # The loop: generate → render → judge
+    ├── generator.py               # Claude + skill → prompt
+    ├── mcp_client.py              # Anthropic MCP connector → Higgsfield
+    ├── frames.py                  # ffmpeg keyframe extraction
+    ├── judge.py                   # Claude-as-judge with rubric
+    └── rubrics/
+        ├── default.yaml           # Generic rubric
+        ├── cinematic.yaml         # Tuned for skill 01
+        └── social-hook.yaml       # Tuned for skill 11
 ```
 
 ## How a skill is structured
@@ -91,10 +108,31 @@ calls. The intended workflow is:
 3. The skill builds a prompt and invokes the Higgsfield MCP tool to generate.
 4. Output is returned to the user with the prompt for reuse / iteration.
 
-The MCP tool surface is documented at the Higgsfield platform. Add the server
-to your Claude config; the skills here produce prompts in the format the MCP
-expects, with `@image1` / `@video1` / `@audio1` reference syntax for uploaded
-materials.
+Two setup paths are supported — the official remote MCP (OAuth via your
+Higgsfield account) and a community local stdio MCP for fallback. See
+[`mcp/README.md`](./mcp/README.md) for both.
+
+## Eval harness
+
+Validation needs feedback, not vibes. The `eval/` package runs a closed
+loop: generate prompt → render via MCP → extract keyframes → score against
+a rubric → refine and retry until a configurable threshold is met (or
+iteration cap is hit).
+
+```bash
+pip install -r requirements.txt
+python -m eval.cli check-mcp
+python -m eval.cli run \
+  --skill skills/01-cinematic/SKILL.md \
+  --brief "lone samurai, foggy bamboo, dawn, 8s" \
+  --rubric eval/rubrics/cinematic.yaml \
+  --max-iterations 3 \
+  --threshold 0.85
+```
+
+Each iteration writes prompt, video, frames, score, and critique under
+`runs/<id>/iteration_NN/`. Full details and architecture in
+[`eval/README.md`](./eval/README.md).
 
 ## Seedance 2.0 platform constraints
 
@@ -111,13 +149,16 @@ Reference uploaded materials inline with `@image1`, `@video1`, `@audio1`.
 
 ## Status
 
-This is a working scaffold. The 15-skill taxonomy and shared craft library
-are in place. Next steps:
+The 15-skill taxonomy, shared craft library, MCP wiring, and the
+iterative eval harness are in place. Outstanding work:
 
+- [x] Build a small evaluation harness: prompt → render → rating → refine
+- [x] Add MCP tool invocation snippets / setup docs
 - [ ] Validate camera/lighting numerics against real Higgsfield generations
+      (run `python -m eval.cli run` against each skill, refine numbers
+      from the critiques)
 - [ ] Replace `[unverified]` markers with confirmed phrasings
-- [ ] Add MCP tool invocation snippets once the tool surface is documented
-- [ ] Build a small evaluation harness: prompt → render → rating
+- [ ] Write rubrics for the remaining 13 verticals
 - [ ] Bilingual (zh-CN) once English is empirically tightened
 
 ## Contributing

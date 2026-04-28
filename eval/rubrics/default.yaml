@@ -1,0 +1,75 @@
+# Default rubric — applies to any vertical.
+#
+# Each criterion is scored 1–5. Final score is the weighted mean of (score-1)/4,
+# producing a 0.0–1.0 composite. Threshold defaults to 0.8 (= average of 4.2/5
+# across criteria).
+#
+# Weights must sum to 1.0.
+
+name: default
+threshold: 0.8
+
+criteria:
+  - id: hook_strength
+    weight: 0.20
+    description: |
+      Does the first 2 seconds grab attention? Is a specific hook
+      technique used (from shared/hook-framework.md or skill-specific
+      hooks), and does the rendered output deliver on it?
+
+      1 = no hook, slow first 2s
+      3 = recognisable hook present but underwhelming
+      5 = strong, specific hook with audio + visual stack landing on time
+
+  - id: prompt_specificity
+    weight: 0.15
+    description: |
+      Are camera, lighting, color, sound specified with concrete numbers
+      (ft/s, °, focal length, K colour temp, dB)? Is timing specified per
+      beat?
+
+      1 = vague language only ("cinematic", "moody")
+      3 = some specifics but key elements missing
+      5 = every move/light/cut has a number and a timestamp
+
+  - id: visual_coherence
+    weight: 0.25
+    description: |
+      Do the rendered frames match the prompt? Lighting, composition,
+      subject, camera position, mood. Penalise prompt-output drift heavily.
+
+      1 = frames look unrelated to prompt
+      3 = subject + setting roughly match; specifics drift
+      5 = frames read as the prompt visualised faithfully
+
+  - id: production_quality
+    weight: 0.15
+    description: |
+      Are the frames cinematically composed? No artifacts (warping faces,
+      garbled text, melting hands). Lighting and depth feel intentional.
+
+      1 = obvious artifacts, amateur look
+      3 = clean but unremarkable
+      5 = production-grade, no artifacts, intentional craft
+
+  - id: brief_adherence
+    weight: 0.15
+    description: |
+      Does the rendered video deliver what the user actually asked for in
+      the brief? Right subject, right action, right tone, right length.
+
+      1 = off-brief
+      3 = mostly on-brief, minor misses
+      5 = exactly what was asked
+
+  - id: audio_design
+    weight: 0.10
+    description: |
+      Is the audio prompt thoughtful? Layered (ambient + score + foley +
+      SFX), with timestamps for cues, and consistent with the visual mood?
+      Score from prompt evidence; the judge cannot hear the rendered
+      audio directly.
+
+      1 = no audio specified or generic music only
+      3 = ambient + one cue, lightly synced
+      5 = full layer cake with timestamps and a silence/drop pattern

@@ -1,0 +1,78 @@
+# Cinematic rubric — for skill 01-cinematic.
+#
+# Heavier weight on visual coherence and production quality; these are the
+# dimensions cinema lives or dies on.
+
+name: cinematic
+threshold: 0.85
+
+criteria:
+  - id: hook_strength
+    weight: 0.15
+    description: |
+      Cinematic hooks are subtler than social hooks. Look for: black-to-burst,
+      silent-to-sound, rack-focus reveal, in-medias-res action, or a
+      reflection/sound-led entrance. The hook should *earn* attention, not
+      shout for it.
+
+      1 = generic open, no specific technique
+      3 = recognisable hook but landing not synchronised
+      5 = stacked cinematic hook (e.g. silence + black-to-burst + audio drop)
+        landing exactly on the 2s mark
+
+  - id: camera_intent
+    weight: 0.15
+    description: |
+      Every camera move should communicate emotion. Dolly forward = intimacy,
+      pull-back = revelation, handheld = urgency, lock-off = observation.
+      Penalise random moves or the same move on every clip.
+
+      1 = move is unspecified or unmotivated
+      3 = move named but not justified by content
+      5 = move chosen for the moment, with timing and speed specified
+
+  - id: lighting_motivation
+    weight: 0.15
+    description: |
+      Cinematic lighting has visible or implied sources (windows, lamps,
+      fire, sun). Naked three-point reads as TV. Look for chiaroscuro,
+      golden hour, volumetric, or motivated practicals. Specify K, intensity,
+      angle.
+
+      1 = "good lighting" or unspecified
+      3 = setup named (e.g. three-point) without specifics
+      5 = setup + sources + ratios + colour temperature + shadow profile
+
+  - id: visual_coherence
+    weight: 0.25
+    description: |
+      Do the rendered frames match the prompt? For cinematic specifically,
+      the grade should be visible in the frames, the lighting setup should
+      read in the shadows, and the composition should match.
+
+      1 = frames don't match prompt
+      3 = subject matches; lighting/grade drift
+      5 = frames are the prompt rendered faithfully — grade, lighting,
+        composition, depth all consistent
+
+  - id: production_quality
+    weight: 0.15
+    description: |
+      Cinematic demands no artifacts. Look at faces, hands, text, edges of
+      moving subjects. Look at depth-of-field consistency. Look for film
+      grain if specified.
+
+      1 = visible artifacts, broken hands/faces
+      3 = clean but uninspired
+      5 = no artifacts, deliberate craft visible in every frame
+
+  - id: brief_adherence
+    weight: 0.10
+    description: |
+      Subject, action, period, mood — all match the brief.
+
+  - id: audio_design
+    weight: 0.05
+    description: |
+      Cinematic audio uses silence as a tool. Look for explicit silent beats
+      before key moments and reverb that suggests space.

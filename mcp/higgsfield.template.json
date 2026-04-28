@@ -1,0 +1,10 @@
+{
+  "_comment": "Template for adding the Higgsfield MCP to Claude Code. Copy to ~/.claude.json (or your project .mcp.json), fill in YOUR-MCP-URL, and run `claude mcp list` to verify.",
+  "mcpServers": {
+    "higgsfield": {
+      "type": "url",
+      "url": "YOUR-HIGGSFIELD-MCP-URL",
+      "_auth_note": "Higgsfield uses OAuth; Claude Code will prompt on first use. No bearer token required in this file."
+    }
+  }
+}

@@ -1,0 +1,62 @@
+# Social-hook rubric — for skill 11-social-hook.
+#
+# Front-loaded weight on the first 2 seconds. Visual coherence still matters
+# (the payoff has to land), but the hook is the whole game.
+
+name: social-hook
+threshold: 0.85
+
+criteria:
+  - id: hook_strength
+    weight: 0.40
+    description: |
+      The first 0.5 seconds are everything. Frame 1 must be anomalous,
+      visually loud, or pose a curiosity-gap question. The first 2s must
+      hold the auto-skip viewer.
+
+      1 = slow open, no pattern interrupt
+      3 = recognisable hook but lands at 2s rather than 0.5s
+      5 = pattern interrupt within 0.5s + caption signpost or audio drop
+        + visual that demands explanation
+
+  - id: vertical_framing
+    weight: 0.10
+    description: |
+      9:16 only. Critical content centred (top/bottom 15% lost to UI).
+      No letterboxed 16:9 in a vertical feed.
+
+      1 = wrong aspect ratio
+      3 = 9:16 but content drifts into UI safe zones
+      5 = 9:16 with all critical content centred 15-85% of frame height
+
+  - id: payoff
+    weight: 0.20
+    description: |
+      The hook promised something. Did the clip deliver it within 8s?
+      Penalise hook-without-payoff (the worst pattern).
+
+      1 = no payoff, just vibes
+      3 = payoff exists but feels tacked on
+      5 = hook → payoff arc lands cleanly within the duration
+
+  - id: visual_coherence
+    weight: 0.15
+    description: |
+      Do the rendered frames match the prompt? Special weight on the
+      hook frame.
+
+  - id: production_quality
+    weight: 0.10
+    description: |
+      No artifacts on faces/hands/text. Caption overlays (if used) are
+      legible.
+
+  - id: loop_potential
+    weight: 0.05
+    description: |
+      Does the last frame visually rhyme with the first? Loop-friendly
+      endings double watch-time-per-impression.
+
+      1 = abrupt end, no rhyme
+      3 = soft fade or settle that *could* loop
+      5 = first and last frames composed to match
