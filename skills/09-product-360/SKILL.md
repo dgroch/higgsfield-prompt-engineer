@@ -136,3 +136,19 @@ Restrained ambient pad. No score.
   rotation looks like a paper cutout being spun.
 - **Forgetting the climax detail.** End on a macro hero shot, not just a
   return to start position.
+
+
+## Submitting
+
+Submit via the Higgsfield CLI (not the MCP server, not the API):
+
+```bash
+higgsfield generate create seedance_2_0 \
+  --prompt "<the prompt you assembled above>" \
+  --duration <n> --aspect_ratio <r> --wait
+```
+
+`--wait` blocks until the job is done and prints the result URL. See
+[shared/submission.md](../../shared/submission.md) for media flags,
+auth bootstrap, and the full rationale for preferring CLI over MCP.
+\r

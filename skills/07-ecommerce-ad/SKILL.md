@@ -140,3 +140,19 @@ saturation 110%.
 - **16:9 for mobile platforms.** Default to 9:16 for IG / TikTok / Reels.
 - **Cluttered hero shots.** The product should sit in 60–80% negative
   space when on-screen.
+
+
+## Submitting
+
+Submit via the Higgsfield CLI (not the MCP server, not the API):
+
+```bash
+higgsfield generate create seedance_2_0 \
+  --prompt "<the prompt you assembled above>" \
+  --duration <n> --aspect_ratio <r> --wait
+```
+
+`--wait` blocks until the job is done and prints the result URL. See
+[shared/submission.md](../../shared/submission.md) for media flags,
+auth bootstrap, and the full rationale for preferring CLI over MCP.
+\r

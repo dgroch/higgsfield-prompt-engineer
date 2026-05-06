@@ -136,3 +136,19 @@ rustle, distant crow at 4 s. Solo cello note at 7 s, sustained.
   reads as a mistake.
 - **Forgetting silence.** Cinematic is as much about what isn't on the
   soundtrack as what is.
+
+
+## Submitting
+
+Submit via the Higgsfield CLI (not the MCP server, not the API):
+
+```bash
+higgsfield generate create seedance_2_0 \
+  --prompt "<the prompt you assembled above>" \
+  --duration <n> --aspect_ratio <r> --wait
+```
+
+`--wait` blocks until the job is done and prints the result URL. See
+[shared/submission.md](../../shared/submission.md) for media flags,
+auth bootstrap, and the full rationale for preferring CLI over MCP.
+\r

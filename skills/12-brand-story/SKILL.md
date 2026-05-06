@@ -151,3 +151,19 @@ strings layer at 5 s. Peaks at 8 s on mantra. Held quiet at end. No VO.
   nothing. Either write a real script or skip VO.
 - **No silence.** The most emotionally effective brand films use silence
   to let moments land.
+
+
+## Submitting
+
+Submit via the Higgsfield CLI (not the MCP server, not the API):
+
+```bash
+higgsfield generate create seedance_2_0 \
+  --prompt "<the prompt you assembled above>" \
+  --duration <n> --aspect_ratio <r> --wait
+```
+
+`--wait` blocks until the job is done and prints the result URL. See
+[shared/submission.md](../../shared/submission.md) for media flags,
+auth bootstrap, and the full rationale for preferring CLI over MCP.
+\r

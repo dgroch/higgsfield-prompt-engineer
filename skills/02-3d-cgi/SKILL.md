@@ -124,3 +124,19 @@ at 8.5 s. Light orchestral cue swells from 6 s, peaks at 9 s.
 - **No bounce light.** Single-source CGI looks like a 1998 video game.
 - **Forgetting subsurface scattering** on skin / wax / fabric / fruit —
   the most common "tell" of weak CGI.
+
+
+## Submitting
+
+Submit via the Higgsfield CLI (not the MCP server, not the API):
+
+```bash
+higgsfield generate create seedance_2_0 \
+  --prompt "<the prompt you assembled above>" \
+  --duration <n> --aspect_ratio <r> --wait
+```
+
+`--wait` blocks until the job is done and prints the result URL. See
+[shared/submission.md](../../shared/submission.md) for media flags,
+auth bootstrap, and the full rationale for preferring CLI over MCP.
+\r

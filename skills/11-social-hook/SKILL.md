@@ -145,3 +145,19 @@ score from 2 s. Subtle UI sound on each scent-detect at 4 / 5.5 s.
   delivering tanks watch-through and trust.
 - **Ignoring loop potential.** A clip that ends abruptly performs worse
   than one whose final frame matches the first.
+
+
+## Submitting
+
+Submit via the Higgsfield CLI (not the MCP server, not the API):
+
+```bash
+higgsfield generate create seedance_2_0 \
+  --prompt "<the prompt you assembled above>" \
+  --duration <n> --aspect_ratio <r> --wait
+```
+
+`--wait` blocks until the job is done and prints the result URL. See
+[shared/submission.md](../../shared/submission.md) for media flags,
+auth bootstrap, and the full rationale for preferring CLI over MCP.
+\r
